@@ -1,14 +1,15 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 
-typedef char DataType;
+typedef int DataType;
 
 // 单链表的结构定义。使用时定义实际链表，只需定义链表头指针
 typedef struct node { // 链表结点
-    DataType data; // 结点数据域
+    DataType data;  // 结点数据域
     struct node *link; // 结点链域
-} LinkNode, *LinkList; // 链头指针
+} LinkNode, *LinkList; // LinkList为链头指针
+// 定义变量时，struct node（必须加struct） 等价于 LinkNode
 
 // 在链表第 i (>=1) 个结点处插入新元素 x，其中表尾和表中插是一致的
 bool Insert(LinkList& first, int i, DataType x) {
@@ -40,7 +41,7 @@ bool Remove(LinkList& first, int i, DataType& x){
     LinkNode *p, *q; int k; // q 是被删结点
     if(i == 0 || first == NULL) return false; // 无效的删除位置
     if(i == 1){
-        q = first; // 存储被删结点
+        q = first; // 存储指向被删结点的指针
         first = first->link;
     }
     else{ // 删除链中或链尾结点
@@ -50,13 +51,13 @@ bool Remove(LinkList& first, int i, DataType& x){
             p = p->link;
             k++;
         }
-        if(p == NULL || p->link == NULL){ // p->link == NULL无效？
+        if(p == NULL || p->link == NULL){ // p是第i-1个结点，p->link才是要删的
             printf("无效的删除位置！\n");
             return false; // 链太短，没有删除结点
         }
         else{
-            q = p->link; // 存储被删结点
-            p->link = q->link;
+            q = p->link; // 存储指向被删结点的指针
+            p->link = q->link; // 让原本 指向被删结点 的指针 指向 被删结点的下一个结点
         }
     }
     x = q->data; free(q); // 删除*q
@@ -121,7 +122,7 @@ LinkNode *Locate(LinkList first, int i){
 int main(){
     LinkList first; // 链表头指针
     LinkList L;
-    DataType endTag;
+    DataType endTag = 1;
     L = (LinkNode *)malloc(sizeof(LinkNode));
     L->link = NULL; // 建立头结点并置空
     insertFront(L, endTag); //改为insertRear即为后插法
