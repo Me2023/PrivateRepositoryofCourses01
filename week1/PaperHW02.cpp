@@ -49,7 +49,7 @@ int length(LinkList first){
 // 单链表逆序，时间复杂度O(n^2)
 void inverse(LinkList& first) {
     // 从尾结点开始，其link指向前一结点；再而是倒数第二个；……；
-    // 到第一个结点时其link指向first，最后first->link = rear
+    // 到第一个结点时其link应指向NULL，最后first->link = rear
 
     // 变量声明和初始化
     LinkNode *p = first, *rear = first, *pre; // pre和p分别指向前后两个相邻结点，rear是要用到的尾指针
@@ -68,7 +68,7 @@ void inverse(LinkList& first) {
         // 到此为止，p指向的是第m个结点，pre指向第m-1个
         p = first;       // 为下一次循环进行初始化
     }
-    pre->link = NULL;    // 最后一次循环后，m=1，pre指向第0个即头结点，进行置空
+    pre->link = NULL;    // 最后一次循环后，m=1，pre的结点的link是指向第0个即头结点的，要进行置空
     first->link = rear;  // 头指针变更
 }
 
