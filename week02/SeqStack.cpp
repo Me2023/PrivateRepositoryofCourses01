@@ -61,3 +61,6 @@ bool getTop ( SeqStack& S, SElemType& x ) {
      x = S.elem[S.top];		          //否则读栈顶
      return true;			          //返回true
 }
+
+
+//
