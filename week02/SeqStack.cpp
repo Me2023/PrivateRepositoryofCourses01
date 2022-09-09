@@ -63,4 +63,3 @@ bool getTop ( SeqStack& S, SElemType& x ) {
 }
 
 
-//
