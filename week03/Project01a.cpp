@@ -15,9 +15,9 @@ typedef struct {
 } SeqList;
 
 // 初始化顺序表
-void initList(SeqList& L){ 
+void initList(SeqList& L) { 
     L.data = (DataType*)malloc(initSize * sizeof(DataType));
-    if(L.data == NULL){
+    if(L.data == NULL) {
         printf("存储分配失败！\n"); exit(1);
     }
     L.n = 0; 
@@ -25,10 +25,10 @@ void initList(SeqList& L){
 }
 
 // 后插建立顺序表
-void insertRear(SeqList& L, DataType endTag){
+void insertRear(SeqList& L, DataType endTag) {
     DataType val;
     scanf("%d", &val); // 读入一数据
-    while(val != endTag && L.n != L.maxSize){
+    while (val != endTag && L.n != L.maxSize) {
         L.data[L.n] = val;
         L.n++;
         scanf("%d", &val); // 读入下一数据
@@ -36,9 +36,9 @@ void insertRear(SeqList& L, DataType endTag){
 }
 
 // 打印整数顺序表
-void printIntList(SeqList L){
+void printIntList(SeqList L) {
     printf("[");
-    for(int i = 0; i < L.n; i++){
+    for (int i = 0; i < L.n; i++) {
         printf("%d", L.data[i]);
         if(i != L.n - 1)printf(", ");
     }
@@ -46,19 +46,19 @@ void printIntList(SeqList L){
 }
 
 // 从数组A[n]建立顺序表
-void createList(SeqList& L, DataType A[], int n){
+void createList(SeqList& L, DataType A[], int n) {
     L.data = (DataType*)malloc(initSize * sizeof(DataType));
-    if(L.data == NULL){
+    if(L.data == NULL) {
         printf("存储分配失败！\n"); exit(1);
     }
-    for(int i = 0; i < n; i++) L.data[i] = A[i];
+    for (int i = 0; i < n; i++) L.data[i] = A[i];
     L.maxSize = initSize; L.n = n;
 }
 
 // 作业部分代码
 /* 从顺序表中删除具有最小值的元素并由函数返回被删元素的值，
 * 空出的位置由最后一个元素填补，若顺序表为空则显示出错信息并退出运行 */
-DataType removeMin(SeqList& L){
+DataType removeMin(SeqList& L) {
     DataType ReturnValue;       // 函数返回变量
     // 出错情况处理
     if(L.n == 0) {printf("顺序表为空表，无法删除！\n"); exit(1);}
@@ -66,14 +66,14 @@ DataType removeMin(SeqList& L){
     // 先找最小值
     DataType min = L.data[0]; // 储存最小值
     int MinIndex = 0;           // 储存最小值的索引 
-    for(int i = 1; i < L.n; i++){
+    for (int i = 1; i < L.n; i++) {
         if(L.data[i] < min) {
             min = L.data[i];
             MinIndex = i;
         }
     }
     // 删除最小值元素
-    for(int j = MinIndex; j < L.n - 1; j++){
+    for (int j = MinIndex; j < L.n - 1; j++) {
         L.data[j] = L.data[j+1];        // 将后面元素前移
     }
     L.n--;                              // 当前表元素个数-1
@@ -83,13 +83,13 @@ DataType removeMin(SeqList& L){
 
 /* 从顺序表中删除第i个元素并由函数返回被删元素的值
 * 如果i不合理或顺序表为空则显示出错信息并退出运行 */
-DataType remove(SeqList& L, int i){
+DataType remove(SeqList& L, int i) {
     // 出错情况处理
     if(L.n == 0) {printf("顺序表为空表，无法删除！\n"); exit(1);}
     if(i <= 0 || i > L.n) {printf("i取值不合理！\n"); exit(1);}
     // 正常运行
     DataType ReturnValue = L.data[i-1];       // 被删元素的值，用于函数返回变量
-    for(int j = i-1; j < L.n - 1; j++){
+    for (int j = i-1; j < L.n - 1; j++) {
         L.data[j] = L.data[j+1];        // 依次将后面元素前移
     }
     L.n--;                              // 当前表元素个数-1
@@ -98,19 +98,19 @@ DataType remove(SeqList& L, int i){
 
 /* 向顺序表中第i个位置插入一个新的元素x
 * 如果i不合理则显示出错信息并退出运行 */
-void insert(SeqList& L, int i, DataType x){
+void insert(SeqList& L, int i, DataType x) {
     // 出错情况处理
     if(i < 1 || i > L.n + 1) {printf("i取值不合理！\n"); exit(1);}
     if(L.n == L.maxSize) {printf("表溢出！\n"); exit(1);}
     // 正常运行
-    for(int j = L.n-1; j>=i-1; j--) L.data[j+1] = L.data[j]; // 后续元素后移
+    for (int j = L.n-1; j>=i-1; j--) L.data[j+1] = L.data[j]; // 后续元素后移
     L.data[i-1] = x;    // 在第i个位置插入x
     L.n++;              // 元素个数+1
 }
 
 /* 从顺序表中删除具有给定值x的所有元素 */
-void removeAll(SeqList& L, DataType x){
-    for(int i = 0; i < L.n; i++){
+void removeAll(SeqList& L, DataType x) {
+    for (int i = 0; i < L.n; i++) {
         if(L.data[i] == x) {
             remove(L, i+1); // 用remove函数移除给定值元素
             i--;            // 索引回退1个，否则下次循环会跳过一个元素
@@ -120,12 +120,12 @@ void removeAll(SeqList& L, DataType x){
 
 /* 从顺序表中删除其值在给定值s与t之间（要求s小于t）的所有元素
 * 如果s或t不合理或顺序表为空则显示出错信息并退出运行 */
-void removeBetween(SeqList& L, DataType s, DataType t){
+void removeBetween(SeqList& L, DataType s, DataType t) {
     // 出错情况处理
     if(s >= t) {printf("s和t取值不合理！\n"); exit(1);}
     if(L.n == 0) {printf("顺序表为空表，无法删除！\n"); exit(1);}
     // 正确运行
-    for(int i = 0; i < L.n; i++){
+    for (int i = 0; i < L.n; i++) {
         if(L.data[i] > s && L.data[i] < t) {
             remove(L, i+1);     // 用remove函数移除满足条件的元素
             i--;                // 回退
@@ -135,7 +135,7 @@ void removeBetween(SeqList& L, DataType s, DataType t){
 
 /* 从有序顺序表中删除其值在给定值s与t之间（要求s小于t）的所有元素
 * 如果s或t不合理或顺序表为空则显示出错信息并退出运行 */
-void removeSortedBetween(SeqList& L, DataType s, DataType t){
+void removeSortedBetween(SeqList& L, DataType s, DataType t) {
     // 出错情况处理
     if(s >= t) {printf("s和t取值不合理！\n"); exit(1);}
     if(L.n == 0) {printf("顺序表为空表，无法删除！\n"); exit(1);}
@@ -143,12 +143,12 @@ void removeSortedBetween(SeqList& L, DataType s, DataType t){
     /* 有序顺序表可以简化操作次数，避免remove函数多次操作移动 */
     /* 先找大于s小于t的元素部分 */
     int i, j;
-    for(i = 0; i < L.n; i++){
+    for (i = 0; i < L.n; i++) {
         // 让i值为第一个要删除的元素的位置，即大于s的第一个数
         if(L.data[i] > s) break;
     }
     if(i == L.n) return;    // 所有元素都比s大的特殊情况，则不删除，直接返回
-    for(j = i; j < L.n; j++){
+    for (j = i; j < L.n; j++) {
         // 让j值为最后一个要删除的元素的位置，即小于t的最后一个数
         if(L.data[j] >= t) {j--; break;}    
     }
@@ -156,7 +156,7 @@ void removeSortedBetween(SeqList& L, DataType s, DataType t){
 
     /* 删除处理 */
     int d = j - i + 1;                      // 删除元素的个数，也是删除之后，其后的元素要前移的位置大小
-    for(int k = i; k + d < L.n; k++){       
+    for (int k = i; k + d < L.n; k++) {       
         /* k = i: 从位置i处开始将其后第d个元素前移至此位置
          * k + d < L.n: 最后一次循环时，原表位置n-1处移至新表位置n-1-d处（即新表表尾） */
         L.data[k] = L.data[k+d];            // 依次将被删区间之后的元素前移
@@ -166,7 +166,7 @@ void removeSortedBetween(SeqList& L, DataType s, DataType t){
 }
 
 /* 将两个有序顺序表合并成一个新的有序顺序表并由函数返回结果顺序表 */
-SeqList mergeList(SeqList List1, SeqList List2){
+SeqList mergeList(SeqList List1, SeqList List2) {
     // 建立结果顺序表并初始化
     SeqList ResultList;
     initList(ResultList);
@@ -174,8 +174,8 @@ SeqList mergeList(SeqList List1, SeqList List2){
     * 但本函数不改变原表，也不将原表复制到新表进行“摘取”，而是用数组索引进行处理 */
     int i1 = 0, i2 = 0; 
     // 将List1, List2从位置索引i1, i2处截断，其之前的元素不再考虑，考虑剩余的
-    while(i1 < List1.n || i2 < List2.n){ // 这保证了List1和List2至少有一个有“剩余”元素
-        if(i1 < List1.n && (List1.data[i1] < List2.data[i2] || i2 == List2.n)){
+    while (i1 < List1.n || i2 < List2.n) { // 这保证了List1和List2至少有一个有“剩余”元素
+        if(i1 < List1.n && (List1.data[i1] < List2.data[i2] || i2 == List2.n)) {
             // “List1仍有剩余元素”且“其首元小于List2剩余元素首元，或List2没有剩余元素”
             insert(ResultList, ResultList.n + 1, List1.data[i1]); 
             // 这时将List1的“首元”插入结果表尾
@@ -193,9 +193,9 @@ SeqList mergeList(SeqList List1, SeqList List2){
 }
 
 /* 从顺序表中删除所有其值重复的元素，使表中所有元素的值均不相同 */
-void removeRepeated(SeqList& L){
-    for(int i = 0; i < L.n; i++){           // 遍历元素，被删除的元素不会再被遍历
-        for(int j = i + 1; j < L.n; j++){   // 将i元素与之后的所有元素进行对比
+void removeRepeated(SeqList& L) {
+    for (int i = 0; i < L.n; i++) {           // 遍历元素，被删除的元素不会再被遍历
+        for (int j = i + 1; j < L.n; j++) {   // 将i元素与之后的所有元素进行对比
             if(L.data[i] == L.data[j]) {
                 // 如果j元素与i元素相同，删除j元素，即第j+1个元素
                 remove(L, j+1); 
@@ -206,7 +206,7 @@ void removeRepeated(SeqList& L){
 }
 
 // 运行，用整数顺序表做测试
-int main(){
+int main() {
     SeqList TestList1, TestList2;
     /* 自行建立顺序表
     initList(TestList1);
