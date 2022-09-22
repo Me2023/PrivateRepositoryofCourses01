@@ -175,7 +175,7 @@ SeqList mergeList(SeqList List1, SeqList List2) {
     int i1 = 0, i2 = 0; 
     // 将List1, List2从位置索引i1, i2处截断，其之前的元素不再考虑，考虑剩余的
     while (i1 < List1.n || i2 < List2.n) { // 这保证了List1和List2至少有一个有“剩余”元素
-        if(i1 < List1.n && (List1.data[i1] < List2.data[i2] || i2 == List2.n)) {
+        if(i1 < List1.n && (i2 == List2.n || List1.data[i1] < List2.data[i2])) {
             // “List1仍有剩余元素”且“其首元小于List2剩余元素首元，或List2没有剩余元素”
             insert(ResultList, ResultList.n + 1, List1.data[i1]); 
             // 这时将List1的“首元”插入结果表尾

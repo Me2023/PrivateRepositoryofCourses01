@@ -15,7 +15,7 @@ bool delMember(LinkedSet& S, DataType x);
 void Merge(LinkedSet& LA, LinkedSet& LB, LinkedSet& LC);
 void Intersect(LinkedSet& LA, LinkedSet& LB, LinkedSet& LC);
 void Diff(LinkedSet& LA, LinkedSet& LB, LinkedSet& LC);
-
+void printSet(LinkedSet S);
 
 
 #endif
