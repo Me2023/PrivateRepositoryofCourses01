@@ -42,4 +42,10 @@ bool getTop ( LinkStack& S, SElemType& x ) {
      x = S->data;  return true;
 }
 
-// 栈的混洗：出栈序列
+// 求栈的长度：计算栈元素个数
+int stackSize(LinkStack& S) {
+     LinkNode *p = S; int k = 0;
+     while (p != NULL) {p = p->link; k++;}
+     return k;
+}
+

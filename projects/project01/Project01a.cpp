@@ -208,7 +208,7 @@ void removeRepeated(SeqList& L) {
 // 运行，用整数顺序表做测试
 int main() {
     SeqList TestList1, TestList2;
-    /* 自行建立顺序表
+    /* 自行建立顺序表*/
     initList(TestList1);
     printf("请依次输入第一个整数顺序表的数据, 以999作为结束\n");
     insertRear(TestList1, 999);  // 以999为endTag
@@ -218,14 +218,17 @@ int main() {
     insertRear(TestList2, 999);  // 以999为endTag
     printf("原顺序表为"); 
     printIntList(TestList2);
-    */
+    
 
+
+   /*
     // 函数测试
     DataType A[14] = {1, 2, 3, 4, 5, 6, 5, -1, 4, 3, 2, 7, 8, 1};
     createList(TestList1, A, 14);
     DataType B[8] = {2, 4, 6, 8, 9, 9, 10, 12};
     createList(TestList2, B, 8);
-
+*/
+    /*
     printf("%d\n",removeMin(TestList1));    // -1
     printIntList(TestList1);                // [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 7, 8, 1]
 
@@ -248,6 +251,6 @@ int main() {
     printIntList(TestList1);                // [1, 2, 6, 7, 8]
 
     printIntList(mergeList(TestList1, TestList2)); // [1, 2, 2, 6, 7, 8, 12]
-    
+    */
     return 0;
 }
