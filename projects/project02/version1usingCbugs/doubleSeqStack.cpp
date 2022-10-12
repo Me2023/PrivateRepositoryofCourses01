@@ -4,16 +4,17 @@
 #define initSize 100
 #define increment 20
 
+typedef double SElemType;
 
 typedef struct {		    //顺序栈定义
-     double *elem;	    //栈数组
+     SElemType *elem;	    //栈数组
      int top, maxSize; 	    //栈顶指针及栈大小
 } SeqStack;
 
 //初始化
 void initStack ( SeqStack& S ) {            
-    S.elem = (double *) malloc ( initSize*
-            sizeof ( double ));
+    S.elem = (SElemType *) malloc ( initSize*
+            sizeof ( SElemType ));
     if (S.elem == NULL) 
           { printf ("存储分配失败!\n");  exit(1); }
      S.top = -1;  S.maxSize = initSize; 
@@ -32,8 +33,8 @@ bool stackFull ( SeqStack& S ) {
 
 void overFlow(SeqStack& S) {   //栈满处理
     int newSize = S.maxSize + increment; 
-    double *newS = (double *) malloc (newSize*
-          sizeof (double ));	//创建新数组
+    SElemType *newS = (SElemType *) malloc (newSize*
+          sizeof (SElemType ));	//创建新数组
     for ( int i = 0; i <= S.top; i++ )
             newS[i] = S.elem[i];   	//向新数组传送数据
     free (S.elem);             	          //释放老数组
@@ -42,7 +43,7 @@ void overFlow(SeqStack& S) {   //栈满处理
 }                                          	//栈顶指针不变
 
 
-void Push ( SeqStack& S, double x ) {
+void Push ( SeqStack& S, SElemType x ) {
 //若栈不满则新元素 x 进栈，否则扩大空间再进栈 
     if ( stackFull(S) ) overFlow(S);   //栈满溢出处理
     S.top++;
@@ -50,14 +51,14 @@ void Push ( SeqStack& S, double x ) {
 }
 
 
-bool Pop ( SeqStack& S, double& x ) {
+bool Pop ( SeqStack& S, SElemType& x ) {
 //若栈空返回false, 否则栈顶元素退出到x并返回true
      if ( stackEmpty(S) ) return false;    //栈空返回false
      x = S.elem[S.top];  S.top--;            //否则先取再退
      return true;			          //返回true
 }
 
-bool getTop ( SeqStack& S, double& x ) {
+bool getTop ( SeqStack& S, SElemType& x ) {
 //若栈空返回false, 否则栈顶元素读到x并返回true
      if ( stackEmpty(S) ) return false;    //栈空返回false
      x = S.elem[S.top];		          //否则读栈顶

@@ -6,7 +6,8 @@ using std::cin; using std::cout; using std::endl;
 using std::string;
 
 int main() {
-    char *TestStr; 
+    char *TestStr;
+     
     //cout << "请输入后缀表达式" << endl;
     //cin << TestStr;
     TestStr = "1+2*(3-4)-5/6#";
