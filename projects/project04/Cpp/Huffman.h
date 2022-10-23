@@ -1,10 +1,13 @@
 #define leafNumber 20		   //默认权重集合大小
 #define totalNumber 39		   //树结点最大个数
+#include <string>
+using std::string;      // 方便处理编码问题
 
 typedef struct {
 	char data;			   //结点的值
 	int weight;			   //结点的权
-	int parent, lchild, rchild;	   //双亲、左、右子女
+	int parent, lchild, rchild;	// 双亲、左、右子女
+	string HuffmanCode;	// Huffman编码字符串
 } HTNode;
 
 typedef struct {

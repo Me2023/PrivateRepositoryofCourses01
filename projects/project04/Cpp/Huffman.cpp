@@ -2,6 +2,7 @@
 #include "minHeap.cpp"
 #include <iostream>
 #include <string>
+
 using std::string; 
 #define maxWeight 32767
 /*
@@ -14,6 +15,7 @@ using std::string;
     (3) 把新的二叉树加入F。
 */
 
+// 由给定char数组和weight数组，构造哈夫曼树，由引用型参数传递
 void createHFTreeWithHeap(HFTree& HT, char value[ ], int fr[ ], int n) {
     int i, k, s1, s2;  
 	for (i = 0; i < n; i++) {			    // 外结点赋值（0~n-1）
@@ -47,7 +49,7 @@ void createHFTreeWithHeap(HFTree& HT, char value[ ], int fr[ ], int n) {
     HT.num = n;  HT.root = 2*n-2; // 外结点数与根
 }
 
-// 对HFTree进行编码，并将编码储存进该树中
+// 对HFTree进行编码，将编码储存进该树中并打印
 void encodeHuffman(HFTree& HT) {
     int i, n = (HT.root + 2) / 2;
     int j, k; string temp;
@@ -70,15 +72,29 @@ void encodeHuffman(HFTree& HT) {
 }
 
 // 根据给定HFTree和字符串，进行解码
-string decodeHuffman(HFTree& HT, string codeline) {
+string decodeHuffman(HFTree& HT, string& codeline) {
     // 编码操作
     encodeHuffman(HT);
-
+    string result; result = "";
+    // 11000111000101011
+    int n = HT.num; int i, j;
+    while (codeline.size() != 0) {
+        for (i = 0; i < n; i++) {
+            j = codeline.find(HT.elem[i].HuffmanCode);
+            if (j == 0) {
+                codeline.erase(0, HT.elem[i].HuffmanCode.size());
+                result += HT.elem[i].data;
+                break;
+            }
+            //if (i == 4 && j == -1) return result;
+        }
+    }
+    return result;
 }
 
 
 void printHFTree (HFTree& HT) {
-    // 打印Huffman树表格
+    // 打印Huffman树表格，不包括编码
     printf("index\tdata\tweight\tparent\tlchild\trchild\n");
     int i;
     for (i = 0; i <= HT.root; i++) {

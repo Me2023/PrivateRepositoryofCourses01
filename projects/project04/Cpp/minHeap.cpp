@@ -1,5 +1,5 @@
 #include "minHeap.h"
-#include <string.h>
+
 void siftDown( minHeap& H, int i, int m );
 void siftUp ( minHeap& H, int start );
 
@@ -7,8 +7,10 @@ void siftUp ( minHeap& H, int start );
 void creatMinHeap ( minHeap& H, char value[], int fr[], int n ) {
 // 将一个数组从局部到整体，自下向上调整为小根堆
     for ( int i = 0; i < n; i++ ) {
-		H.elem[i].weight = fr[i];    //复制，完全二叉树
+		// 复制为完全二叉树
+		H.elem[i].weight = fr[i];    
 		H.elem[i].value = value[i];
+		H.elem[i].indexInTree = i;
 	}
 	H.curSize = n;	
 	for ( int i = (H.curSize-2)/2; i >= 0; i-- )	
@@ -37,4 +39,24 @@ bool Remove ( minHeap& H, heapNode& x ) {
 	H.curSize--; 
 	siftDown ( H, 0, H.curSize-1 );    //从新调整为堆
 	return true;					
+}
+
+// 将x插入到小根堆中并从新调整形成新的小根堆
+bool Insert ( minHeap& H, heapNode& x ) {
+	if ( H.curSize == heapSize ) return false;			//堆满，返回插入不成功信息
+	H.elem[H.curSize] = x; 	//插入到最后
+	siftUp ( H, H.curSize );		//从下向上调整
+	H.curSize++; 			//堆计数加1
+	return true;
+}        
+
+// 小根堆的向上筛选算法：从结点start开始到结点0为止, 自下向上比较, 将集合重新调整为堆。
+void siftUp ( minHeap& H, int start ) {
+	heapNode temp = H.elem[start];
+	int j = start, i = (j-1)/2;
+	while ( j > 0 ) {	//沿双亲路径向上直达根
+	    if ( H.elem[i].weight <= temp.weight ) break;	//双亲值小
+	    else { H.elem[j] = H.elem[i];  j = i;  i = (i-1)/2; }
+	}			//双亲的值下降，j与i的位置上升
+	H.elem[j] = temp;	//回送
 }

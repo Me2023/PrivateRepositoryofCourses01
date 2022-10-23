@@ -1,3 +1,4 @@
+// 邻接表表示的图的定义
 #include<stdio.h>
 #include<stdlib.h>
 #define maxVertices 30	    //图中顶点数最大值
