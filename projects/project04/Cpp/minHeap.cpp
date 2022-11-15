@@ -1,7 +1,5 @@
 #include "minHeap.h"
 
-void siftDown( minHeap& H, int i, int m );
-void siftUp ( minHeap& H, int start );
 
 // 小根堆的建立
 void creatMinHeap ( minHeap& H, char value[], int fr[], int n ) {

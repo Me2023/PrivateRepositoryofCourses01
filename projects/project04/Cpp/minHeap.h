@@ -12,3 +12,9 @@ typedef struct {
     heapNode elem[heapSize];	// 小根堆存储数组
     int curSize;			    // 当前元素个数
 } minHeap;
+
+void creatMinHeap ( minHeap& H, char value[], int fr[], int n );
+void siftDown( minHeap& H, int i, int m );
+void siftUp ( minHeap& H, int start );
+bool Insert ( minHeap& H, heapNode& x );
+void siftUp ( minHeap& H, int start );
