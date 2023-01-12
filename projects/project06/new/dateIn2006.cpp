@@ -62,7 +62,6 @@ int dateIn2006::weekNum() {
     return (totalDays - 1) % 7;
 }
 
-
 // 返回季度。
 int dateIn2006::seasonNum() {
     return month % 3;
@@ -70,14 +69,9 @@ int dateIn2006::seasonNum() {
 
 // 直接打印
 void dateIn2006::display() {
-    cout << year << '-' << month << '-' << day << endl;
+    cout << year << '-' << month << '-' << day;
 }
 
-// 返回要打印的字符串
-string dateIn2006::dispStr() {
-    return "" + year + '-' + month + '-' + day;
-    // return year + '-' + month + '-' + day; 会被当做int，无法返回
-}
 
 // 前进一天。12月31日会前进到13月1日，但13月1日不可再前进。
 void dateIn2006::tomorrow() {
@@ -97,14 +91,14 @@ void daysOfWeek(int w, vector<dateIn2006> &daysInWeek) {
     }
     int total = (w-1) * 7 - 5;
     int mList[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int i = 0, m = 0, d = 0;
-    while(total > mList[i]) {
+    int m = 1;
+    while(total > mList[m - 1]) {
+        total -= mList[m - 1];
         m += 1;
-        total -= mList[i];
-        i += 1;
     }
     // 此时 dateIn2006(m, total) 是该周第一天的日期，将包括这天的连续一周存入引用变量里。
     dateIn2006 myDate = dateIn2006(m, total);
+    int i = 0;
     for(i = 0; i < 7; i++) {
         if (myDate.month != 13) {
             daysInWeek.push_back(myDate);

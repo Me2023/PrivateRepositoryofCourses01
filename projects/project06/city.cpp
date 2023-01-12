@@ -10,6 +10,8 @@ public:
     city(int a = 0, string b = "", vector<AQCondition> c = vector<AQCondition>()) 
     : num(a), name(b), AQCList(c) {} 
 
+    
+
     // 普通查询：分别查询该城市每天、每周、每月、每季度和全年的空气质量状况
     // 查询该城市每天的空气质量状况
     void searchDayAQ(dateIn2006 d) {

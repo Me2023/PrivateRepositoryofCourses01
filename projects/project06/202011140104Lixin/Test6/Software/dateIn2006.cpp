@@ -14,7 +14,7 @@ public:
     
     int mList[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    // æ–¹æ³•
+    // ·½·¨
     int toDays();
     int weekNum();
     int seasonNum();
@@ -22,13 +22,13 @@ public:
     string dispStr();
     void tomorrow();
 
-    // æ„é€ å‡½æ•°
+    // ¹¹Ôìº¯Êı
     dateIn2006() : month(0), day(0), totalDays(0) {}
     dateIn2006(int m, int d) : month(m), day(d) {
         totalDays = toDays();
     }
 
-    // è¿ç®—ç¬¦é‡è½½
+    // ÔËËã·ûÖØÔØ
     bool operator<(dateIn2006 &other) {
         if (totalDays < other.totalDays) return true;
         return false;
@@ -44,7 +44,7 @@ public:
     
 };
 
-// è¿”å›å¤©æ•°ã€‚å¦‚2æœˆ2æ—¥è¿”å›33ã€‚
+// ·µ»ØÌìÊı¡£Èç2ÔÂ2ÈÕ·µ»Ø33¡£
 int dateIn2006::toDays() {
     int i = month;
     int days = 0;
@@ -57,29 +57,23 @@ int dateIn2006::toDays() {
 }
 
 
-// è¿”å›å‘¨æ•°ã€‚2006å¹´1æœˆ1æ—¥æ˜¯å‘¨æ—¥ï¼Œç®—ä½œç¬¬1å‘¨ï¼›1æœˆ2æ—¥æ˜¯å‘¨ä¸€ï¼Œç®—ä½œç¬¬2å‘¨ã€‚
+// ·µ»ØÖÜÊı¡£2006Äê1ÔÂ1ÈÕÊÇÖÜÈÕ£¬Ëã×÷µÚ1ÖÜ£»1ÔÂ2ÈÕÊÇÖÜÒ»£¬Ëã×÷µÚ2ÖÜ¡£
 int dateIn2006::weekNum() {
     return (totalDays - 1) % 7;
 }
 
-
-// è¿”å›å­£åº¦ã€‚
+// ·µ»Ø¼¾¶È¡£
 int dateIn2006::seasonNum() {
     return month % 3;
 }
 
-// ç›´æ¥æ‰“å°
+// Ö±½Ó´òÓ¡
 void dateIn2006::display() {
-    cout << year << '-' << month << '-' << day << endl;
+    cout << year << '-' << month << '-' << day;
 }
 
-// è¿”å›è¦æ‰“å°çš„å­—ç¬¦ä¸²
-string dateIn2006::dispStr() {
-    return "" + year + '-' + month + '-' + day;
-    // return year + '-' + month + '-' + day; ä¼šè¢«å½“åšintï¼Œæ— æ³•è¿”å›
-}
 
-// å‰è¿›ä¸€å¤©ã€‚12æœˆ31æ—¥ä¼šå‰è¿›åˆ°13æœˆ1æ—¥ï¼Œä½†13æœˆ1æ—¥ä¸å¯å†å‰è¿›ã€‚
+// Ç°½øÒ»Ìì¡£12ÔÂ31ÈÕ»áÇ°½øµ½13ÔÂ1ÈÕ£¬µ«13ÔÂ1ÈÕ²»¿ÉÔÙÇ°½ø¡£
 void dateIn2006::tomorrow() {
     day += 1;
     if (day > mList[month - 1]) {
@@ -88,7 +82,7 @@ void dateIn2006::tomorrow() {
     }
 }
 
-// è¾“å…¥å‘¨æ•°ï¼Œé€šè¿‡å¼•ç”¨è¿”å›è¯¥å‘¨ç¬¬ä¸€å¤©çš„æ—¥æœŸ
+// ÊäÈëÖÜÊı£¬Í¨¹ıÒıÓÃ·µ»Ø¸ÃÖÜµÚÒ»ÌìµÄÈÕÆÚ
 void daysOfWeek(int w, vector<dateIn2006> &daysInWeek) {
 
     if (w == 1) {
@@ -97,14 +91,14 @@ void daysOfWeek(int w, vector<dateIn2006> &daysInWeek) {
     }
     int total = (w-1) * 7 - 5;
     int mList[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int i = 0, m = 0, d = 0;
-    while(total > mList[i]) {
+    int m = 1;
+    while(total > mList[m - 1]) {
+        total -= mList[m - 1];
         m += 1;
-        total -= mList[i];
-        i += 1;
     }
-    // æ­¤æ—¶ dateIn2006(m, total) æ˜¯è¯¥å‘¨ç¬¬ä¸€å¤©çš„æ—¥æœŸï¼Œå°†åŒ…æ‹¬è¿™å¤©çš„è¿ç»­ä¸€å‘¨å­˜å…¥å¼•ç”¨å˜é‡é‡Œã€‚
+    // ´ËÊ± dateIn2006(m, total) ÊÇ¸ÃÖÜµÚÒ»ÌìµÄÈÕÆÚ£¬½«°üÀ¨ÕâÌìµÄÁ¬ĞøÒ»ÖÜ´æÈëÒıÓÃ±äÁ¿Àï¡£
     dateIn2006 myDate = dateIn2006(m, total);
+    int i = 0;
     for(i = 0; i < 7; i++) {
         if (myDate.month != 13) {
             daysInWeek.push_back(myDate);
